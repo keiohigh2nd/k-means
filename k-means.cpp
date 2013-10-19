@@ -156,12 +156,13 @@ void K_means::show() {
     int tmp = this->nodes[i].id;
     total[tmp] += 1;
   }
-
+ 
   std::ofstream ofs( "res_hist.txt" );
 
   for(size_t i=0; i < this->k; ++i) {
     std::cout << i <<"th group has " << total[i] << std::endl;
-    ofs << total[i] << std::endl;
+    double normalized = (double)total[i]/this->nodes.size();
+    ofs << normalized << std::endl;
   }
 
 

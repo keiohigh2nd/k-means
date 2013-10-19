@@ -7,11 +7,13 @@
 #include <sstream>
 #include "k-means.cpp"
 
+
 int main(int argc, char *argv[]) {
 
   int num_iterations = 100;
-  int K = 20;
-  std::string file_name = "AMD_desc.txt";
+  int K = 7;
+
+  std::string file_name = argv[1];
   K_means km;
   km.set_k(K);
   km.load_data(file_name);
