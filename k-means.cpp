@@ -22,6 +22,9 @@ int GetRandom(int min,int max) {
 	return min + (int)(rand()*(max-min+1.0)/(1.0+RAND_MAX));
 }
 
+
+
+
 //All nodes are set their id first
 void K_means::init() {
   std::vector<int> init_point;
@@ -35,7 +38,7 @@ void K_means::init() {
   std::cout << "init point size is " << init_point.size() << std::endl;
 
   for(size_t i=0; i < this->nodes.size() ; i++) {
-    double init_value = 10000;
+    double init_value = 1000000;
     int init_id;
     for (size_t j=0; j < init_point.size() ; j++) {
       double tmp;
@@ -53,7 +56,7 @@ void K_means::init() {
 //After calculation of centers, set id
 void K_means::nearest_id(const std::vector<std::vector<double> >&center) {
   for(size_t i=0; i < this->nodes.size() ; i++) {
-   double init_value = 10000;
+   double init_value = 1000000;
    int init_id;
    for (size_t j=0; j < center.size() ; j++) {
      double tmp;
@@ -71,7 +74,6 @@ void K_means::nearest_id(const std::vector<std::vector<double> >&center) {
 std::vector<std::vector<double> >K_means::calc_center() {
   std::vector<std::vector<int> >k_stack;
   k_stack.resize(this->k);
-
   std::vector<std::vector<double> >new_center;
   new_center.resize(this->k);
 
@@ -83,7 +85,6 @@ std::vector<std::vector<double> >K_means::calc_center() {
   for(size_t i=0; i < this->k; i++) {
     new_center[i] = get_average(k_stack[i]);
   }
-
  return new_center;
 
 }
@@ -126,6 +127,27 @@ void K_means::sample() {
 
 }
 
+void K_means::load_data(std::string file) {
+
+    const std::string g_file_name = file;
+    std::ifstream g_file(g_file_name.c_str());
+    if (!g_file){
+        std::cerr << "Failed to open file: file name=" << g_file_name << std::endl;
+        return;
+    }
+
+    std::string g_temp;
+    std::vector<std::vector<double> > a;
+    while (std::getline(g_file, g_temp)) {
+        Node node;
+        std::stringstream ss(g_temp);
+        for (double x; ss>>x;) {
+            node.data.push_back(x);
+        }
+        this->nodes.push_back(node);
+    }
+}
+
 void K_means::show() {
   std::vector<int> total;
   total.resize(this->k);
@@ -135,8 +157,12 @@ void K_means::show() {
     total[tmp] += 1;
   }
 
+  std::ofstream ofs( "res_hist.txt" );
+
   for(size_t i=0; i < this->k; ++i) {
-    std::cout << i <<"th group has " << total[i] << std::endl; 
+    std::cout << i <<"th group has " << total[i] << std::endl;
+    ofs << total[i] << std::endl;
   }
+
 
 }

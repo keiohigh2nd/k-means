@@ -22,6 +22,7 @@ class K_means {
     std::vector<std::vector<double> > calc_center();
     std::vector<double> get_average(const std::vector<int>& a);
     void sample();
+    void load_data(std::string);
     void show();
   private:
     std::vector<Node> nodes;

@@ -9,12 +9,12 @@
 
 int main(int argc, char *argv[]) {
 
-  int num_iterations = 10;
-  int K = 5;
-
+  int num_iterations = 100;
+  int K = 20;
+  std::string file_name = "AMD_desc.txt";
   K_means km;
   km.set_k(K);
-  km.sample();
+  km.load_data(file_name);
   km.init();
 
   for (size_t i =0; i < num_iterations; ++i) {
