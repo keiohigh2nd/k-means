@@ -10,8 +10,8 @@
 
 int main(int argc, char *argv[]) {
 
-    std::vector<double> a = load_array("AMD_res_hist.txt");
-    std::vector<double> b = load_array("DM_res_hist.txt");
+    std::vector<double> a = load_array("AMD_10_res_hist.txt");
+    std::vector<double> b = load_array("normal_10_res_hist.txt");
     std::string q_name = argv[1];
     std::vector<double> q = load_array(q_name);
 
@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
 
     std::ofstream ofs( "res_class_hist.txt",std::ios::app);  
     if(dist_a > dist_b){
-      ofs << "DM" << std::endl;
+      ofs << "norma" << std::endl;
     }else{
       ofs << "AMD" << std::endl;
     }

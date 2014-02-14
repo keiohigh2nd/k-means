@@ -23,6 +23,8 @@ class K_means {
     std::vector<double> get_average(const std::vector<int>& a);
     void sample();
     void load_data(std::string);
+    void load_descriptors(std::vector<std::vector<double> >&desc);
+    std::vector<double> desc();
     void show();
   private:
     std::vector<Node> nodes;

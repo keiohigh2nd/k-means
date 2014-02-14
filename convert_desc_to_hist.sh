@@ -1,7 +1,7 @@
 #!/bin/bash
 set -xu
 
-files="/home/keiohigh2nd/k-means/ranked_desc/*"
+files="/home/keiohigh2nd/k-means/ranked_normal_desc/*"
 
 g++ main.cpp
 for filepath in ${files}

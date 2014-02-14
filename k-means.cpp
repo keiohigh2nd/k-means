@@ -38,7 +38,7 @@ void K_means::init() {
   std::cout << "init point size is " << init_point.size() << std::endl;
 
   for(size_t i=0; i < this->nodes.size() ; i++) {
-    double init_value = 1000000;
+    double init_value = 1000000000000;
     int init_id;
     for (size_t j=0; j < init_point.size() ; j++) {
       double tmp;
@@ -56,7 +56,7 @@ void K_means::init() {
 //After calculation of centers, set id
 void K_means::nearest_id(const std::vector<std::vector<double> >&center) {
   for(size_t i=0; i < this->nodes.size() ; i++) {
-   double init_value = 1000000;
+   double init_value = 100000000000000;
    int init_id;
    for (size_t j=0; j < center.size() ; j++) {
      double tmp;
@@ -72,16 +72,18 @@ void K_means::nearest_id(const std::vector<std::vector<double> >&center) {
 
 //Calculation of centers
 std::vector<std::vector<double> >K_means::calc_center() {
+  
   std::vector<std::vector<int> >k_stack;
   k_stack.resize(this->k);
+
   std::vector<std::vector<double> >new_center;
   new_center.resize(this->k);
 
-  for(size_t i=0; i < this->nodes.size() ; ++i) {
+  for(int i=0; i < this->nodes.size() ; ++i) {
     int k_id = this->nodes[i].id;
+    //Here is the problem.. k_id is 92 is great
     k_stack[k_id].push_back(i);
   }
-
   for(size_t i=0; i < this->k; i++) {
     new_center[i] = get_average(k_stack[i]);
   }
@@ -116,10 +118,19 @@ void K_means::sample() {
   int cols = 2;
   int data_size = 100;
 
-  for(size_t i=0; i < data_size; ++i) {
+  for(size_t i=0; i < 50; ++i) {
     Node node;
     int x = GetRandom(0, 100);
     int y = GetRandom(0, 100);
+    node.data.push_back(x);
+    node.data.push_back(y);
+    this->nodes.push_back(node);
+  }
+
+  for(size_t i=0; i < 50; ++i) {
+    Node node;
+    int x = GetRandom(1000,2000);
+    int y = GetRandom(1000,2000);
     node.data.push_back(x);
     node.data.push_back(y);
     this->nodes.push_back(node);
@@ -148,6 +159,16 @@ void K_means::load_data(std::string file) {
     }
 }
 
+void K_means::load_descriptors(std::vector<std::vector<double> >& desc) { 
+    for(size_t i=0; i < desc.size(); ++i) {            
+        Node node;
+        for(size_t j=0; j < desc.size(); ++j) {
+            node.data.push_back(j);
+        }
+        this->nodes.push_back(node);
+    }                                                 
+} 
+
 void K_means::show() {
   std::vector<int> total;
   total.resize(this->k);
@@ -157,13 +178,31 @@ void K_means::show() {
     total[tmp] += 1;
   }
  
-  std::ofstream ofs( "res_hist.txt" );
+  std::ofstream ofs("res_hist.txt");
 
   for(size_t i=0; i < this->k; ++i) {
     std::cout << i <<"th group has " << total[i] << std::endl;
     double normalized = (double)total[i]/this->nodes.size();
     ofs << normalized << std::endl;
   }
-
-
 }
+
+std::vector<double> K_means::desc() {
+  std::vector<double> res;
+
+  std::vector<int> total;
+  total.resize(this->k);
+
+  for(size_t i=0; i < this->nodes.size(); ++i) {
+    int tmp = this->nodes[i].id;
+    total[tmp] += 1;
+  }
+
+  for(size_t i=0; i < this->k; ++i) {
+    std::cout << i <<"th group has " << total[i] << std::endl;
+    double normalized = (double)total[i]/this->nodes.size();
+    res.push_back(normalized);
+  }
+  return res;
+}
+

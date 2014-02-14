@@ -2,3 +2,7 @@ a.out
 *.txt
 ranked_desc/
 ranked_hist/
+texts/
+data/
+common.py
+common.pyc
