@@ -137,7 +137,7 @@ if __name__ == '__main__':
 	kp_g = []
 	desc_g = []
 	for good_file in good_files:
-		if good_file == '.DS_Store':
+		if good_file.find("jpg") == -1:
 			print 'skip'
 		else:
 			print good_file
@@ -149,8 +149,11 @@ if __name__ == '__main__':
         	
         # -*- coding: utf-8 -*-	
 	##write to disc
-	tmp_name = argvs[1]+".txt"
-	f = open(tmp_name, 'a')
+	tmp_name = argvs[1]
+	tmp_part = tmp_name.split("/")
+	name = tmp_part[-2]+"_desc.txt"
+	print name
+	f = open(name, 'a')
         for arr in desc_g:
             for val in arr:
                 f.write(str(val))
