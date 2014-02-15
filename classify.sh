@@ -1,23 +1,23 @@
 #!/bin/bash
 set -xue
 
-test1="/home/keiohigh2nd/k-means/derm_data/test_data/"
+test_pics="/home/keiohigh2nd/k-means/derm_data/MMZIP1/*"
 
-train1="/home/keiohigh2nd/k-means/derm_data/train_data/"
-train2="/home/keiohigh2nd/k-means/derm_data/train_data/"
+#Trained histogram data
+train1="/home/keiohigh2nd/k-means/derm_data/train_data/hist_data/fibrillar_desc.txt.txt"
+train2="/home/keiohigh2nd/k-means/derm_data/train_data/hist_data/nails_desc.txt.txt"
 
-#Extract Sift from each picture of test directory
-for filepath in ${test1}
-do
-  python2.7 extract_sift.py ${filepath}
-done
+g++ -o main.out -O2 main.cpp
+g++ -o calc_similarity.out -O2 calc_similarity_derm.cpp
 
-
-g++ -O2 calc_similarity_der.cpp
 #Calculate distance from res_hist of test directory
-for filepath in ${dir1}
+for filepath in ${test_pics}
 do
-  ./a.out ${train1} ${train2} ${filepath}
+  python2.7 extract_sift_pic.py ${filepath}
+  ./main.out res_desc.txt
+  ./calc_similarity.out  ${train1} ${train2} res_hist.txt
+  rm res_hist.txt
+  rm res_desc.txt
 done
 
 
