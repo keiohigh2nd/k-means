@@ -10,8 +10,8 @@
 
 int main(int argc, char *argv[]) {
 
-  int num_iterations = 1000;
-  int K = 2;
+  int num_iterations = 100;
+  int K = 15;
 
   std::string file_name = argv[1];
   K_means km;
