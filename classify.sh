@@ -1,7 +1,7 @@
 #!/bin/bash
 set -xue
 
-test_pics="/home/keiohigh2nd/k-means/derm_data/MMZIP1/*"
+test_pics="/home/keiohigh2nd/k-means/derm_data/MMZIP2/*"
 
 #Trained histogram data
 train1="/home/keiohigh2nd/k-means/derm_data/train_data2/hist_data/ncn_g_desc.txt.txt"

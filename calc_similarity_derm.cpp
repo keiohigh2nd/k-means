@@ -20,9 +20,9 @@ int main(int argc, char *argv[]) {
 
     std::ofstream ofs( "res_class_hist.txt",std::ios::app);  
     if(dist_a > dist_b){
-      ofs << "A" << std::endl;
-    }else{
       ofs << "B" << std::endl;
+    }else{
+      ofs << "A" << std::endl;
     }
 
  return 0;
